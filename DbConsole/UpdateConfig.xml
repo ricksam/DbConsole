@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<UpdateConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FileName>C:\Documents and Settings\ricksam\Configurações locais\Dados de aplicativos\RckInstaller\New_UpdateConfig.xml</FileName>
+  <SerializeFormat>Xml</SerializeFormat>
+  <LinkVersao>http://www.rcksoftware.com.br/app/Install_DbConsole.html</LinkVersao>
+  <LinkUpdate>http://www.rcksoftware.com.br/app/Install_DbConsole-{version}.exe.zip</LinkUpdate>
+  <AppLocal>{pf}\RCK Software\DbConsole\DbConsole.exe</AppLocal>
+  <AppParams></AppParams>
+  <AppText>Database Console</AppText>
+  <AppSplash>{localappdata}\DbConsole\Splash_Screen.png</AppSplash>
+  <InitialTime>0</InitialTime>
+</UpdateConfig>

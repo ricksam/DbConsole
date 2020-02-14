@@ -1,0 +1,240 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DbConsole
+{
+  public static class Utility
+  {
+    public static string[] GetReservedWords() 
+    {
+      string[] words = new string[211];
+
+      words[0] = "ADD";
+      words[1] = "ALL";
+      words[2] = "ALLOCATE";
+      words[3] = "ALTER";
+      words[4] = "AND";
+      words[5] = "ANY";
+      words[6] = "ARE";
+      words[7] = "AS";
+      words[8] = "ASC";
+      words[9] = "ASSERTION";
+      words[10] = "AT";
+      words[11] = "AUTHORIZATION";
+      words[12] = "AVG";
+      words[13] = "BEGIN";
+      words[14] = "BETWEEN";
+      words[15] = "BIT";
+      words[16] = "BOOLEAN";
+      words[17] = "BOTH";
+      words[18] = "BY";
+      words[19] = "CALL";
+      words[20] = "CASCADE";
+      words[21] = "CASCADED";
+      words[22] = "CASE";
+      words[23] = "CAST";
+      words[24] = "CHAR";
+      words[25] = "CHARACTER";
+      words[26] = "CHECK";
+      words[27] = "CLOSE";
+      words[28] = "COLLATE";
+      words[29] = "COLLATION";
+      words[30] = "COLUMN";
+      words[31] = "COMMIT";
+      words[32] = "CONNECT";
+      words[33] = "CONNECTION";
+      words[34] = "CONSTRAINT";
+      words[35] = "CONSTRAINTS";
+      words[36] = "CONTINUE";
+      words[37] = "CONVERT";
+      words[38] = "CORRESPONDING";
+      words[39] = "COUNT";
+      words[40] = "CREATE";
+      words[41] = "CURRENT";
+      words[42] = "CURRENT_DATE";
+      words[43] = "CURRENT_TIME";
+      words[44] = "CURRENT_TIMESTAMP";
+      words[45] = "CURRENT_USER";
+      words[46] = "CURSOR";
+      words[47] = "DEALLOCATE";
+      words[48] = "DEC";
+      words[49] = "DECIMAL";
+      words[50] = "DECLARE";
+      words[51] = "DEFERRABLE";
+      words[52] = "DEFERRED";
+      words[53] = "DELETE";
+      words[54] = "DESC";
+      words[55] = "DESCRIBE";
+      words[56] = "DIAGNOSTICS";
+      words[57] = "DISCONNECT";
+      words[58] = "DISTINCT";
+      words[59] = "DOUBLE";
+      words[60] = "DROP";
+      words[61] = "ELSE";
+      words[62] = "END";
+      words[63] = "ENDEXEC";
+      words[64] = "ESCAPE";
+      words[65] = "EXCEPT";
+      words[66] = "EXCEPTION";
+      words[67] = "EXEC";
+      words[68] = "EXECUTE";
+      words[69] = "EXISTS";
+      words[70] = "EXPLAIN";
+      words[71] = "EXTERNAL";
+      words[72] = "FALSE";
+      words[73] = "FETCH";
+      words[74] = "FIRST";
+      words[75] = "FLOAT";
+      words[76] = "FOR";
+      words[77] = "FOREIGN";
+      words[78] = "FOUND";
+      words[79] = "FROM";
+      words[80] = "FULL";
+      words[81] = "FUNCTION";
+      words[82] = "GET";
+      words[83] = "GET_CURRENT_CONNECTION";
+      words[84] = "GLOBAL";
+      words[85] = "GO";
+      words[86] = "GOTO";
+      words[87] = "GRANT";
+      words[88] = "GROUP";
+      words[89] = "HAVING";
+      words[90] = "HOUR";
+      words[91] = "IDENTITY";
+      words[92] = "IMMEDIATE";
+      words[93] = "IN";
+      words[94] = "INDICATOR";
+      words[95] = "INITIALLY";
+      words[96] = "INNER";
+      words[97] = "INOUT";
+      words[98] = "INPUT";
+      words[99] = "INSENSITIVE";
+      words[100] = "INSERT";
+      words[101] = "INT";
+      words[102] = "INTEGER";
+      words[103] = "INTERSECT";
+      words[104] = "INTO";
+      words[105] = "IS";
+      words[106] = "ISOLATION";
+      words[107] = "JOIN";
+      words[108] = "KEY";
+      words[109] = "LAST";
+      words[110] = "LEFT";
+      words[111] = "LIKE";
+      words[112] = "LONGINT";
+      words[113] = "LOWER";
+      words[114] = "LTRIM";
+      words[115] = "MATCH";
+      words[116] = "MAX";
+      words[117] = "MIN";
+      words[118] = "MINUTE";
+      words[119] = "NAÇÃOAL";
+      words[120] = "NATURAL";
+      words[121] = "NCHAR";
+      words[122] = "NVARCHAR";
+      words[123] = "NEXT";
+      words[124] = "NO";
+      words[125] = "NOT";
+      words[126] = "NULL";
+      words[127] = "NULLIF";
+      words[128] = "NUMERIC";
+      words[129] = "OF";
+      words[130] = "ON";
+      words[131] = "ONLY";
+      words[132] = "OPEN";
+      words[133] = "OPTION";
+      words[134] = "OR";
+      words[135] = "ORDER";
+      words[136] = "OUT";
+      words[137] = "OUTER";
+      words[138] = "OUTPUT";
+      words[139] = "OVERLAPS";
+      words[140] = "PAD";
+      words[141] = "PARTIAL";
+      words[142] = "PREPARE";
+      words[143] = "PRESERVE";
+      words[144] = "PRIMARY";
+      words[145] = "PRIOR";
+      words[146] = "PRIVILEGES";
+      words[147] = "PROCEDURE";
+      words[148] = "PUBLIC";
+      words[149] = "READ";
+      words[150] = "REAL";
+      words[151] = "REFERENCES";
+      words[152] = "RELATIVE";
+      words[153] = "RESTRICT";
+      words[154] = "REVOKE";
+      words[155] = "RIGHT";
+      words[156] = "ROLLBACK";
+      words[157] = "ROWS";
+      words[158] = "RTRIM";
+      words[159] = "SCHEMA";
+      words[160] = "SCROLL";
+      words[161] = "SECOND";
+      words[162] = "SELECT";
+      words[163] = "SESSION_USER";
+      words[164] = "SET";
+      words[165] = "SMALLINT";
+      words[166] = "SOME";
+      words[167] = "SPACE";
+      words[168] = "SQL";
+      words[169] = "SQLCODE";
+      words[170] = "SQLERROR";
+      words[171] = "SQLSTATE";
+      words[172] = "SUBSTR";
+      words[173] = "SUBSTRING";
+      words[174] = "SUM";
+      words[175] = "SYSTEM_USER";
+      words[176] = "TABLE";
+      words[177] = "TEMPORARY";
+      words[178] = "TIMEZONE_HOUR";
+      words[179] = "TIMEZONE_MINUTE";
+      words[180] = "TO";
+      words[181] = "TRAILING";
+      words[182] = "TRANSACTION";
+      words[183] = "TRANSLATE";
+      words[184] = "TRANSLATION";
+      words[185] = "TRUE";
+      words[186] = "UNION";
+      words[187] = "UNIQUE";
+      words[188] = "UNKNOWN";
+      words[189] = "UPDATE";
+      words[190] = "UPPER";
+      words[191] = "USER";
+      words[192] = "USING";
+      words[193] = "VALUES";
+      words[194] = "VARCHAR";
+      words[195] = "VARYING";
+      words[196] = "VIEW";
+      words[197] = "WHENEVER";
+      words[198] = "WHERE";
+      words[199] = "WITH";
+      words[200] = "WORK";
+      words[201] = "WRITE";
+      words[202] = "XML";
+      words[203] = "XMLEXISTS";
+      words[204] = "XMLPARSE";
+      words[205] = "XMLSERIALIZE";
+      words[206] = "YEAR";
+      //outros
+      words[207] = "DATETIME";
+      words[208] = "BIGINT";
+      words[209] = "BLOB";
+      words[210] = "TEXT";
+      
+      return words;
+    }
+
+    public static Config Config { get; set; }
+
+    #region private bool ItemInList(string Item, string[] List)
+    public static bool ItemInList(string Item, string[] List)
+    {
+      for (int i = 0; i < List.Length; i++)
+      { if (Item == List[i]) { return true; } }
+      return false;
+    }
+    #endregion
+  }
+}

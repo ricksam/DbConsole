@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<WebDbArgs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FileName>D:\PROJECTS\RckSoftware\DbConsole\WebConsole\Config.xml</FileName>
+  <SerializeFormat>Xml</SerializeFormat>
+  <WindowsAuthentication>true</WindowsAuthentication>
+  <DbType>SQLServer</DbType>
+  <Server>localhost</Server>
+  <Database>aaTagAPI</Database>
+  <User />
+  <Password />
+</WebDbArgs>
