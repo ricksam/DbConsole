@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "E:\\PROJECTS\\DbConsole\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2E941114-CA0B-465C-AA12-5662AC1DBA42}|DbConsole\\DbConsole.csproj|e:\\projects\\dbconsole\\dbconsole\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E941114-CA0B-465C-AA12-5662AC1DBA42}|DbConsole\\DbConsole.csproj|solutionrelative:dbconsole\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8FF4006C-2D70-467F-BA6C-D08131ACB7CE}|DbConsoleCore\\DbConsoleCore.csproj|e:\\projects\\dbconsole\\dbconsolecore\\dbconsolecore.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{8FF4006C-2D70-467F-BA6C-D08131ACB7CE}|DbConsoleCore\\DbConsoleCore.csproj|solutionrelative:dbconsolecore\\dbconsolecore.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8FF4006C-2D70-467F-BA6C-D08131ACB7CE}|DbConsoleCore\\DbConsoleCore.csproj|e:\\projects\\dbconsole\\dbconsolecore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8FF4006C-2D70-467F-BA6C-D08131ACB7CE}|DbConsoleCore\\DbConsoleCore.csproj|solutionrelative:dbconsolecore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,31 +25,54 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Config.cs",
+              "DocumentMoniker": "E:\\PROJECTS\\DbConsole\\DbConsole\\Config.cs",
+              "RelativeDocumentMoniker": "DbConsole\\Config.cs",
+              "ToolTip": "E:\\PROJECTS\\DbConsole\\DbConsole\\Config.cs",
+              "RelativeToolTip": "DbConsole\\Config.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-29T19:01:21.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "DbConsoleCore",
+              "DocumentMoniker": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\DbConsoleCore.csproj",
+              "RelativeDocumentMoniker": "DbConsoleCore\\DbConsoleCore.csproj",
+              "ToolTip": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\DbConsoleCore.csproj",
+              "RelativeToolTip": "DbConsoleCore\\DbConsoleCore.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-29T18:50:50.877Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Microsoft.PackageDependencyResolution.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
               "ViewState": "AgIAAPsAAAAAAAAAAAAgwAkBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-10-29T18:00:57.66Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T18:00:57.66Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\Program.cs",
               "RelativeDocumentMoniker": "DbConsoleCore\\Program.cs",
-              "ToolTip": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\Program.cs*",
-              "RelativeToolTip": "DbConsoleCore\\Program.cs*",
+              "ToolTip": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\Program.cs",
+              "RelativeToolTip": "DbConsoleCore\\Program.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAuwBkAAABoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T18:00:51.61Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T18:00:51.61Z"
             }
           ]
         }
