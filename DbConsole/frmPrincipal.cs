@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +11,7 @@ using lib.Database;
 using lib.Database.Drivers;
 using lib.Database.Query;
 using lib.Visual;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace DbConsole
 {
@@ -30,6 +32,7 @@ namespace DbConsole
         //int QtdeProgress { get; set; }
         List<string> TextState { get; set; }
         int LastSecoundProcess { get; set; }
+        int idxFilter { get; set; }
         #endregion
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -69,6 +72,8 @@ namespace DbConsole
             cbEscreverMaiusculo.Checked = Utility.Config.EscreverMaiusculo;
             cbEstiloVisual.Checked = Utility.Config.EstiloVisual;
             cbPontoVirgula.Checked = Utility.Config.ExecutarPontoVirgula;
+            txtTemplatePath.Text = Utility.Config.TemplateFolder;
+            txtNamespace.Text = Utility.Config.TemplateNamespace;
             cbEsquema.Checked = true; //Sempre ao abrir é true. 
                                       //Se desejar utilizar como false para operações em Sql complexas então deverá clicar no menu para remover o flag
 
@@ -110,8 +115,8 @@ namespace DbConsole
 
             if (DbConsole.Index != -1)
             {
-                this.Text = string.Format("DbConsole [{0}] ", lib.Class.Utils.GetVersion()) + DbConsole.Alias[DbConsole.Index];
-                lblBanco.Text = DbConsole.Alias[DbConsole.Index];
+                this.Text = string.Format("DbConsole [{0}] ", lib.Class.Utils.GetVersion()) + DbConsole.Alias[DbConsole.Index].Replace("\n", "").Replace("\r", "");
+                lblBanco.Text = DbConsole.Alias[DbConsole.Index].Replace("\n", "").Replace("\r", "");
             }
 
             if (DbConsole.DbCurrent != null)
@@ -144,7 +149,8 @@ namespace DbConsole
                     DataTable dt_indexColumns = DbConsole.GetSchema("IndexColumns");
                     DataTable dt_indexes = DbConsole.GetSchema("Indexes");
 
-                    string Sql = "";
+                    string Sql = string.Format("select * from {0}", lstTables.SelectedItem.ToString());
+                    /*string Sql = "";
 
                     if (cbUtilizaColchetes.Checked)
                     {
@@ -153,24 +159,25 @@ namespace DbConsole
                     else
                     {
                         Sql = string.Format("select * from {0}", lstTables.SelectedItem.ToString());
-                    }
+                    }*/
 
 
                     if (dt_indexColumns != null && dt_indexColumns.Rows.Count != 0 &&
                         dt_indexes != null && dt_indexes.Rows.Count != 0
                         )
                     {
-                        string pk_column = getColumnPrimary(dt_indexes, dt_indexColumns, TableName);
+                        string pk_column = DbConsole.GetFirstColumnPrimary(dt_indexes, dt_indexColumns, TableName);
                         if (!string.IsNullOrEmpty(pk_column))
                         {
-                            if (cbUtilizaColchetes.Checked)
+                            Sql = string.Format("select * from {0} order by {1} desc ", lstTables.SelectedItem.ToString(), pk_column);
+                            /*if (cbUtilizaColchetes.Checked)
                             {
                                 Sql = string.Format("select * from [{0}] order by [{1}] desc ", lstTables.SelectedItem.ToString(), pk_column);
                             }
                             else
                             {
                                 Sql = string.Format("select * from {0} order by {1} desc ", lstTables.SelectedItem.ToString(), pk_column);
-                            }
+                            }*/
                         }
                     }
 
@@ -230,6 +237,7 @@ namespace DbConsole
         #endregion
 
         #region private void Consultar(string Sql)
+        /*
         private bool HasColumn(DataTable d, string ColumnName)
         {
             for (int i = 0; i < d.Columns.Count; i++)
@@ -288,6 +296,7 @@ namespace DbConsole
 
             return null;
         }
+        */
 
         private void Consultar(string Sql, string TableName, bool Limitar)
         {
@@ -343,11 +352,11 @@ namespace DbConsole
                 for (int i = 0; i < grdRegistros.Columns.Count; i++)
                 { grdRegistros.Columns[i].Width = DbConsole.GetSizeField(tb, i); }
 
-          //grdColumns.Clear();
-          //grdColumns.AddColumn(new FieldColumn("Campos", "Campos", enmFieldType.String, 200));
-          //grdColumns.AddColumn(new FieldColumn("Tipo", "Tipo", enmFieldType.String, 200));
+                //grdColumns.Clear();
+                //grdColumns.AddColumn(new FieldColumn("Campos", "Campos", enmFieldType.String, 200));
+                //grdColumns.AddColumn(new FieldColumn("Tipo", "Tipo", enmFieldType.String, 200));
 
-          lstReportExibir.Items.Clear();
+                lstReportExibir.Items.Clear();
                 lstReportTotalizar.Items.Clear();
 
                 grdColumns.Rows.Clear();
@@ -355,8 +364,8 @@ namespace DbConsole
                 {
                     string col_name = tb.Columns[i].ColumnName;
                     string col_type = DbConsole.GetDbTypeField(tb, i);
-              //grdColumns.AddItem(new string[] { col_name, col_type }, null);
-              grdColumns.Rows.Add(new string[] { col_name, col_type });
+                    //grdColumns.AddItem(new string[] { col_name, col_type }, null);
+                    grdColumns.Rows.Add(new string[] { col_name, col_type });
                     lstReportExibir.Items.Add(col_name, true);
                     lstReportTotalizar.Items.Add(col_name);
                 }
@@ -369,6 +378,8 @@ namespace DbConsole
                 txtScript.Text = DbConsole.GetMetadataTable(tb, cbUtilizaColchetes.Checked);
                 txtAlias.Text = tb.TableName;
                 txtReportName.Text = tb.TableName;
+
+                txtCode.Text = GetCode();
             });
         }
         #endregion
@@ -471,6 +482,12 @@ namespace DbConsole
                 {
                     //cbUsaSchema.Checked = true;//f.DbType != enmConnection.MySql;
                     cbUtilizaColchetes.Checked = f.DbType == enmConnection.SqlServer;
+                    
+                    if (f.DbType == enmConnection.Oracle) {
+                        cbUpdateColumns.Checked = false;
+                        cbTablesAndViews.Checked = false;
+                    }
+                    
 
                     Connection c = new Connection();
                     c.Connect(f.DbType, f.InfoConnection);
@@ -484,7 +501,6 @@ namespace DbConsole
                 frmExibirConexao f = new frmExibirConexao();
                 f.Carregar(ex.Message);
                 f.ShowDialog();
-            
             }
         }
         #endregion
@@ -876,7 +892,7 @@ namespace DbConsole
             if (dlgOpen.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 pnlProgress.Visible = true;
-                AddLog("Arquivo Executado:\r\n" + dlgOpen.FileName+"\r\n"+DbConsole.ExecFile(dlgOpen.FileName));
+                AddLog("Arquivo Executado:\r\n" + dlgOpen.FileName + "\r\n" + DbConsole.ExecFile(dlgOpen.FileName));
                 pnlProgress.Visible = false;
             }
         }
@@ -1405,7 +1421,7 @@ namespace DbConsole
             string ColumnName = grdRegistros.Columns[e.ColumnIndex].Name;
             string CellValue = grdRegistros.SelectedCells[0].Value.ToString();
 
-            ForeignKey[] dependences =  DbConsole.GetDependencies();
+            ForeignKey[] dependences = DbConsole.GetDependencies();
 
             List<string> opcoes = new List<string>();
             foreach (var item in dependences)
@@ -1415,10 +1431,11 @@ namespace DbConsole
                 {
                     string sql = string.Format("select * from {0} where {1} = '{2}'",
                         item.TableReference, item.ColumnReference, CellValue);
-                    if (opcoes.IndexOf(sql) == -1) {
+                    if (opcoes.IndexOf(sql) == -1)
+                    {
                         opcoes.Add(sql);
                     }
-                    
+
                 }
             }
 
@@ -1427,6 +1444,158 @@ namespace DbConsole
                 txtSql.Text += Environment.NewLine + Environment.NewLine + item;
             }
             //if(e.)
+        }
+
+        private void processosAbertosSQLServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmProcess f = new frmProcess();
+            f.SetDb(DbConsole);
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                if (f.DtProcess != null)
+                {
+                    bool[] checkeds = f.GetTablesCheckeds();
+                    for (int i = 0; i < f.DtProcess.Rows.Count; i++)
+                    {
+                        try
+                        {
+                            if (checkeds[i])
+                            {
+                                if (DbConsole.DbCurrent.dbType == enmConnection.SqlServer)
+                                {
+                                    string sql_command = "kill " + f.DtProcess.Rows[i]["spid"].ToString();
+                                    DbConsole.ExecQuery(sql_command, false);
+                                }
+
+                                if (DbConsole.DbCurrent.dbType == enmConnection.PostgreSQL)
+                                {
+                                    string sql_command = "select pg_terminate_backend(" + f.DtProcess.Rows[i]["pid"].ToString() + "); ";
+                                    DbConsole.ExecQuery(sql_command, false);
+                                }
+                            }
+                        }
+                        catch { continue; }
+                    }
+                }
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            idxFilter++;
+            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(SerarchTable));
+            thread.Start(idxFilter);
+        }
+
+        private void SerarchTable(object idx)
+        {
+            System.Threading.Thread.Sleep(800);
+            if (idxFilter != (int)idx)
+            { return; }
+
+            string[] AllTables = DbConsole.GetTables();
+            List<string> ListTables = new List<string>();
+
+            if (!string.IsNullOrEmpty(txtFilterTables.Text))
+            {
+                string[] q_tables = txtFilterTables.Text.Split(',');
+                foreach (var item in q_tables)
+                {
+                    string[] filtredTables = AllTables.Where(q => q.ToLower().Contains(item.ToLower())).ToArray();
+                    foreach (var ft in filtredTables)
+                    {
+                        if (!ListTables.Contains(ft))
+                        {
+                            ListTables.Add(ft);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ListTables.AddRange(AllTables);
+            }
+            string[] Tables = ListTables.ToArray();
+            Array.Sort(Tables);
+            this.BeginInvoke((Action)delegate ()
+            {
+                lstTables.Items.Clear();
+                lstTables.Items.AddRange(Tables);
+            });
+
+        }
+
+        private void fastCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dlgSave.Filter = "JSON|*.json";
+            if (dlgSave.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                pnlProgress.Visible = true;
+                DbConsole.ExportToFastCode(dlgSave.FileName);
+                pnlProgress.Visible = false;
+            }
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (dlgFolder.ShowDialog() == DialogResult.OK)
+            {
+                Utility.Config.TemplateFolder = dlgFolder.SelectedPath;
+                txtTemplatePath.Text = dlgFolder.SelectedPath;
+            }
+        }
+
+        private void txtTemplatePath_TextChanged(object sender, EventArgs e)
+        {
+            if (Utility.Config.TemplateFolder != txtTemplatePath.Text) {
+                Utility.Config.TemplateFolder = txtTemplatePath.Text;
+            } 
+            if (System.IO.Directory.Exists(Utility.Config.TemplateFolder))
+            {
+                cmbTempaltes.Items.Clear();
+                cmbTempaltes.Items.AddRange(System.IO.Directory.GetFiles(Utility.Config.TemplateFolder, "*.bin").Select(q => System.IO.Path.GetFileName(q)).ToArray());
+            }
+        }
+
+        private string GetCode()
+        {
+            try
+            {
+                DllTemplate.Template tpl = new DllTemplate.Template();
+                tpl.FileName = string.Format("{0}/{1}", txtTemplatePath.Text, cmbTempaltes.Text);
+                if (!System.IO.File.Exists(tpl.FileName))
+                {
+                    return "";
+                }
+                tpl.Open();
+
+                DllTemplate.Table tbl = new DllTemplate.Table();
+
+                //DataTable tb = Gbl.Dados.db.GetDataTable(sql, 1, true);
+                //ForeignKey[] foreignKeys = Gbl.Dados.db.GetForeignKeys();
+
+                //tb.TableName = name;
+                if (DbConsole.LastTable.TableName.Contains(".")) {
+                    DbConsole.LastTable.TableName = DbConsole.LastTable.TableName.Split('.')[1].ToString().Replace("[", "").Replace("]", "");
+                }
+                tbl.LoadTable(DbConsole.LastTable, DbConsole.GetDependencies());
+
+                DllTemplate.Compile cpl = new DllTemplate.Compile();
+                return cpl.getCode(tpl, tbl, txtNamespace.Text);
+            }
+            catch { return ""; }
+        }
+
+        private void cmbTempaltes_SelectedValueChanged(object sender, EventArgs e)
+        {
+            txtCode.Text = GetCode();
+        }
+
+
+        private void txtNamespace_TextChanged(object sender, EventArgs e)
+        {
+            Utility.Config.TemplateNamespace = txtNamespace.Text;
         }
     }
 

@@ -7,6 +7,8 @@ using lib.Database;
 using lib.Database.Drivers;
 using lib.Visual;
 using System.Linq;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace DbConsole
 {
@@ -207,7 +209,7 @@ namespace DbConsole
             {
                 if (ShowErrors)
                 { Msg.Warning(ex.Message); }
-                
+
                 return null;
             }
             finally
@@ -270,6 +272,81 @@ namespace DbConsole
         }
         #endregion
 
+        private bool HasColumn(DataTable d, string ColumnName)
+        {
+            for (int i = 0; i < d.Columns.Count; i++)
+            {
+                if (d.Columns[i].ColumnName.ToUpper() == ColumnName.ToUpper())
+                { return true; }
+            }
+
+            return false;
+        }
+
+        public string[] GetIndexesPrimary(DataTable dt_indexes, string TableName) {
+            List<string> indexes_names = new List<string>();
+
+            // Modelo utilizado pelo SQL Server e provavelmente pelo Postgree
+            if (HasColumn(dt_indexes, "table_name") && HasColumn(dt_indexes, "type_desc") && HasColumn(dt_indexes, "index_name"))
+            {
+                for (int i = 0; i < dt_indexes.Rows.Count; i++)
+                {
+                    string schema = dt_indexes.Rows[i]["table_schema"].ToString();
+                    string table = dt_indexes.Rows[i]["table_name"].ToString();
+                    if ($"[{schema}].[{table}]".ToUpper() == TableName.ToUpper()
+                        && dt_indexes.Rows[i]["type_desc"].ToString().ToUpper() == "CLUSTERED")
+                    {
+                        indexes_names.Add(dt_indexes.Rows[i]["index_name"].ToString());
+                    }
+                }
+            }
+
+            // Modelo utilizado pelo MySQL e provavelmente pelo SQLite
+            if (HasColumn(dt_indexes, "table_name") && HasColumn(dt_indexes, "primary") && HasColumn(dt_indexes, "index_name"))
+            {
+                for (int i = 0; i < dt_indexes.Rows.Count; i++)
+                {
+                    if (dt_indexes.Rows[i]["table_name"].ToString().ToUpper() == TableName.ToUpper()
+                        && dt_indexes.Rows[i]["primary"].ToString().ToUpper() == "TRUE")
+                    {
+                        indexes_names.Add(dt_indexes.Rows[i]["index_name"].ToString());
+                    }
+                }
+            }
+
+            return indexes_names.ToArray();
+        }
+
+        public string[] GetColumnsPrimaries(DataTable dt_indexes, DataTable dt_indexColumns, string TableName) {
+            string[] indexes_names = GetIndexesPrimary(dt_indexes, TableName);
+            List<string> primaries = new List<string>();
+            if (HasColumn(dt_indexColumns, "table_name") && HasColumn(dt_indexColumns, "index_name") && HasColumn(dt_indexColumns, "column_name"))
+            {
+                for (int i = 0; i < dt_indexColumns.Rows.Count; i++)
+                {
+                    foreach (var index_name in indexes_names)
+                    {
+                        string schema = dt_indexColumns.Rows[i]["table_schema"].ToString();
+                        string table = dt_indexColumns.Rows[i]["table_name"].ToString();
+                        if ($"[{schema}].[{table}]".ToUpper() == TableName.ToUpper()
+                        && dt_indexColumns.Rows[i]["index_name"].ToString().ToUpper() == index_name.ToUpper())
+                        {
+                            primaries.Add(dt_indexColumns.Rows[i]["column_name"].ToString());
+                        }
+                    }
+                    
+                }
+            }
+            return primaries.ToArray();
+        }
+
+        public string GetFirstColumnPrimary(DataTable dt_indexes, DataTable dt_indexColumns, string TableName)
+        {
+            string[] primaries = GetColumnsPrimaries(dt_indexes, dt_indexColumns, TableName);
+            return primaries.Length != 0 ? primaries[0]:"";
+        }
+
+
         #region public string GetDbTypeField(DataTable tb, int ColumnIndex)
         public string GetDbTypeField(DataTable tb, int ColumnIndex)
         {
@@ -285,6 +362,52 @@ namespace DbConsole
             return type;
         }
         #endregion
+
+        private string GetFastCodeType(DataTable tb, int ColumnIndex, ForeignKey[] foreignKeys, out string role, DataColumn[] PrimaryKeys)
+        {
+            role = "";
+
+            if (PrimaryKeys.FirstOrDefault(q => q.ColumnName == tb.Columns[ColumnIndex].ColumnName) != null)
+            {
+                return "pk";
+            }
+
+            ForeignKey fk = foreignKeys.FirstOrDefault(q => q.TableName == tb.TableName && q.ColumnName == tb.Columns[ColumnIndex].ColumnName);
+
+            if (fk!=null) {
+                role = fk.ColumnReference;
+                if (fk.TableReference.Contains("."))
+                {
+                    return fk.TableReference.Split('.')[1].Replace("[", "").Replace("]", "");
+                }
+                else
+                {
+                    return fk.TableReference;
+                }
+                
+            }
+
+            if (tb.Columns[ColumnIndex].DataType == typeof(int))
+            {
+                return "number";
+            }
+            else if (tb.Columns[ColumnIndex].DataType == typeof(decimal))
+            {
+                return "value";
+            }
+            else if (tb.Columns[ColumnIndex].DataType == typeof(bool))
+            {
+                return "bool";
+            }
+            else if (tb.Columns[ColumnIndex].DataType == typeof(DateTime))
+            {
+                return "date";
+            }
+            else
+            {
+                return "text";
+            }
+        }
 
         #region private string GetSqlError(Exception ex)
         private string GetSqlError(Exception ex)
@@ -362,7 +485,7 @@ namespace DbConsole
             }
         }
         #endregion
-        
+
         #region public string ExecFile(string FileName)
         public string ExecFile(string FileName)
         {
@@ -378,7 +501,7 @@ namespace DbConsole
 
             List<string> identity_tables = DbCurrent.GetIdentityTables();
             DbCurrent.BeginTransaction();
-            
+
             while ((line = tf.ReadLine()) != null)
             {
                 if (Cancel)
@@ -393,7 +516,8 @@ namespace DbConsole
                     continue;
                 }
 
-                if (line.Contains("SET IDENTITY_INSERT") ) {
+                if (line.Contains("SET IDENTITY_INSERT"))
+                {
 
                     int idx_start = line.IndexOf("SET IDENTITY_INSERT");
                     int idx_end = line.IndexOf(" ON ");
@@ -401,14 +525,16 @@ namespace DbConsole
                     string sub_string = line.Substring(idx_start, idx_end + 4).ToUpper();
                     string table_script = sub_string.Replace("SET IDENTITY_INSERT ", "").Replace(" ON ", "").Replace("[", "").Replace("]", "");
 
-                    if (DbCurrent.dbType == enmConnection.SqlServer) {
+                    if (DbCurrent.dbType == enmConnection.SqlServer)
+                    {
                         string tabela_localizada = identity_tables.FirstOrDefault(q => q.ToUpper() == table_script);
                         if (string.IsNullOrEmpty(tabela_localizada))
                         {
                             line = line.Replace(sub_string, "");
                         }
                     }
-                    else {
+                    else
+                    {
                         line = line.Replace(sub_string, "");
                     }
                     /*
@@ -424,19 +550,21 @@ namespace DbConsole
 
                 bool PodeExecutar = line.IndexOf(";") != -1;
 
-                if (string.IsNullOrEmpty(buffer)) {
+                if (string.IsNullOrEmpty(buffer))
+                {
                     if (PodeExecutar && line.Count(q => q == '\'') % 2 == 1)
                     {
                         PodeExecutar = false;
                     }
                 }
-                else {
+                else
+                {
                     if (PodeExecutar && (buffer + line).Count(q => q == '\'') % 2 == 1)
                     {
                         PodeExecutar = false;
                     }
                 }
-                
+
                 if (PodeExecutar)
                 {
                     buffer += " " + (line.Trim() == "GO" ? "" : line);
@@ -479,10 +607,10 @@ namespace DbConsole
         public DataTable GetSchema(string CollectionName)
         { return DbCurrent.GetSchema(CollectionName); }
 
-        public string[] GetTables(bool WithViews = true)
+        public string[] GetTables(bool WithViews = true, bool WithSchema = true)
         {
             if (Index != -1)
-            { return DbCurrent.GetTables(WithViews); }
+            { return DbCurrent.GetTables(WithViews, WithSchema); }
             else
             { return new string[] { }; }
         }
@@ -491,7 +619,7 @@ namespace DbConsole
         #region public string[] GetDependencies(string TableName)
         public ForeignKey[] GetDependencies()
         {
-            
+
             return DbCurrent.GetForeignKeys();
         }
 
@@ -509,12 +637,12 @@ namespace DbConsole
         #endregion
 
         #region public string[] GetTablesInOrder()
-        public string[] GetTablesInOrder(bool UseSquareBrackets)
+        public string[] GetTablesInOrder(bool UseSquareBrackets, bool WithSchema = true)
         {
             try
             {
                 DbScript dbs = CreateDbScript(UseSquareBrackets);// new DbScript(DbCurrent);
-                return dbs.GetTablesInOrder(1000);
+                return dbs.GetTablesInOrder(1000, WithSchema);
             }
             catch (Exception ex)
             { Msg.Warning(ex.Message); }
@@ -622,7 +750,7 @@ namespace DbConsole
                 }
 
                 string table = Tables[i];
-                if (UseSquareBrackets)
+                if (UseSquareBrackets && !table.Contains("["))
                 { table = string.Format("[{0}]", table); }
 
                 DataTable dt = GetQuery("select * from " + table, Tables[i], 1);
@@ -681,6 +809,91 @@ namespace DbConsole
             tf.Close();
         }
 
+        public void ExportToFastCode(string FileName)
+        {
+            if (System.IO.File.Exists(FileName))
+            { System.IO.File.Delete(FileName); }
+
+            lib.Class.TextFile tf = new TextFile();
+            tf.Open(enmOpenMode.Writing, FileName);
+
+
+            string[] tablesWithSchema = GetTables(false, true); // GetTablesInOrder(false, false);
+            string[] tables = GetTables(false, false);
+
+            ForeignKey[] foreignKeysWithSchema = DbCurrent.GetForeignKeys();
+
+            var entities = new List<object>();
+
+            bool cancel = false;
+            for (int it = 0; it < tables.Length; it++)
+            {
+                var table = tables[it];
+                ScriptProgress(table, it, tables.Length, out cancel);
+
+                if (cancel) {
+                    break;
+                }
+
+                try
+                {
+                    string sql =  "select * from " + tablesWithSchema[it] + " where 1=0";
+                    DataTable tb = GetQuery(sql, tablesWithSchema[it]);
+                    FillSchema(tb);
+
+                    if (tb == null || tb.Columns == null) {
+                        continue;
+                    }
+
+                    var fields = new List<object>();
+                    var primaryKeys = tb.PrimaryKey;
+
+                    if (primaryKeys.Length != 1)
+                    {
+                        continue;
+                    }
+
+                    for (int i = 0; i < tb.Columns.Count; i++)
+                    {
+                        string role;
+                        string col_name = tb.Columns[i].ColumnName;
+                        string col_type = GetFastCodeType(tb, i, foreignKeysWithSchema, out role, tb.PrimaryKey);
+                        int size = tb.Columns[i].MaxLength / 5;
+
+                        if (size < 4) { size = 4; }
+
+                        if (size > 12) { size = 12; }
+
+                        fields.Add(new
+                        {
+                            title = col_name,
+                            name = col_name,
+                            placeholder = col_name,
+                            type = col_type,
+                            size,
+                            role
+                        });
+                    }
+
+                    entities.Add(new
+                    {
+                        title = table,
+                        name = table,
+                        fields
+                    });
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+
+            //tf.Write(Indent((new JSON()).Serialize(new { entities })));
+            tf.Write((new JSON()).Serialize(new { name = "WebApplication1", entities }));
+
+            tf.Close();
+        }
+
         #region public void ExportDadosTables(string FileName)
         public void ExportDataTables(string FileName, string[] TablesSelected, bool UseInsertIdentity, bool UseSquareBrackets, bool RewriteFile, bool MultipleFiles)
         {
@@ -704,7 +917,7 @@ namespace DbConsole
                 }
 
                 string table = Tables[i];
-                if (UseSquareBrackets)
+                if (UseSquareBrackets && !Tables[i].Contains("["))
                 {
                     table = string.Format("[{0}]", Tables[i]);
                 }
@@ -783,7 +996,7 @@ namespace DbConsole
                 case enmConnection.Oracle: return lib.Entity.ConnectionType.Oracle;
                 case enmConnection.SQLite: return lib.Entity.ConnectionType.SQLite;
                 case enmConnection.SqlServer: return lib.Entity.ConnectionType.SqlServer;
-                case enmConnection.SqlServerCe: return lib.Entity.ConnectionType.SqlServerCe;
+                case enmConnection.PostgreSQL: return lib.Entity.ConnectionType.PostgreSQL;
                 default: return lib.Entity.ConnectionType.None;
             }
         }

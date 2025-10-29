@@ -28,34 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstTabelas = new System.Windows.Forms.ListBox();
+            this.txtTabelas = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // lstTabelas
+            // txtTabelas
             // 
-            this.lstTabelas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstTabelas.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstTabelas.FormattingEnabled = true;
-            this.lstTabelas.ItemHeight = 15;
-            this.lstTabelas.Location = new System.Drawing.Point(0, 0);
-            this.lstTabelas.Name = "lstTabelas";
-            this.lstTabelas.Size = new System.Drawing.Size(625, 391);
-            this.lstTabelas.TabIndex = 0;
+            this.txtTabelas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtTabelas.Location = new System.Drawing.Point(0, 0);
+            this.txtTabelas.Multiline = true;
+            this.txtTabelas.Name = "txtTabelas";
+            this.txtTabelas.Size = new System.Drawing.Size(833, 481);
+            this.txtTabelas.TabIndex = 0;
             // 
             // frmTabelaTamanho
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 391);
-            this.Controls.Add(this.lstTabelas);
+            this.ClientSize = new System.Drawing.Size(833, 481);
+            this.Controls.Add(this.txtTabelas);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmTabelaTamanho";
             this.Text = "Tabelas";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox lstTabelas;
+        private System.Windows.Forms.TextBox txtTabelas;
     }
 }

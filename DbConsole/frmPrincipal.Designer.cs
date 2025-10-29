@@ -56,6 +56,7 @@
             this.exibirInsertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exibirUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exibirDeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtFilterTables = new System.Windows.Forms.TextBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -96,6 +97,16 @@
             this.cmbReportType = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtReportName = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.txtCode = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtNamespace = new System.Windows.Forms.TextBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.txtTemplatePath = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbTempaltes = new System.Windows.Forms.ComboBox();
             this.bsNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.bsRegistros = new System.Windows.Forms.BindingSource(this.components);
@@ -148,9 +159,11 @@
             this.truncateDasTabelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoçãoDasTabelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listaDeCamposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fastCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeChavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exibirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabelasPorTamanhoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processosAbertosSQLServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.executarArquivoDeScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compararBasesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -164,6 +177,7 @@
             this.btnCancelProgress = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.lblBanco = new System.Windows.Forms.Label();
+            this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdColumns)).BeginInit();
             this.cmTables.SuspendLayout();
@@ -183,6 +197,8 @@
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsNavigator)).BeginInit();
             this.bsNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsRegistros)).BeginInit();
@@ -195,11 +211,12 @@
             this.panel1.Controls.Add(this.grdColumns);
             this.panel1.Controls.Add(this.splitter2);
             this.panel1.Controls.Add(this.lstTables);
+            this.panel1.Controls.Add(this.txtFilterTables);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 30);
+            this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(267, 534);
+            this.panel1.Size = new System.Drawing.Size(267, 536);
             this.panel1.TabIndex = 0;
             // 
             // grdColumns
@@ -223,7 +240,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.grdColumns.DefaultCellStyle = dataGridViewCellStyle2;
             this.grdColumns.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdColumns.Location = new System.Drawing.Point(0, 348);
+            this.grdColumns.Location = new System.Drawing.Point(0, 370);
             this.grdColumns.Margin = new System.Windows.Forms.Padding(4);
             this.grdColumns.Name = "grdColumns";
             this.grdColumns.ReadOnly = true;
@@ -233,7 +250,7 @@
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
             this.grdColumns.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.grdColumns.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.grdColumns.Size = new System.Drawing.Size(267, 186);
+            this.grdColumns.Size = new System.Drawing.Size(267, 166);
             this.grdColumns.TabIndex = 3;
             // 
             // Campos
@@ -256,7 +273,7 @@
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter2.Location = new System.Drawing.Point(0, 342);
+            this.splitter2.Location = new System.Drawing.Point(0, 364);
             this.splitter2.Margin = new System.Windows.Forms.Padding(4);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(267, 6);
@@ -273,7 +290,7 @@
             this.lstTables.ForeColor = System.Drawing.Color.Black;
             this.lstTables.FormattingEnabled = true;
             this.lstTables.ItemHeight = 20;
-            this.lstTables.Location = new System.Drawing.Point(0, 0);
+            this.lstTables.Location = new System.Drawing.Point(0, 22);
             this.lstTables.Margin = new System.Windows.Forms.Padding(4);
             this.lstTables.Name = "lstTables";
             this.lstTables.Size = new System.Drawing.Size(267, 342);
@@ -390,12 +407,22 @@
             this.exibirDeleteToolStripMenuItem.Text = "Exibir Delete";
             this.exibirDeleteToolStripMenuItem.Click += new System.EventHandler(this.exibirDeleteToolStripMenuItem_Click);
             // 
+            // txtFilterTables
+            // 
+            this.txtFilterTables.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtFilterTables.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtFilterTables.Location = new System.Drawing.Point(0, 0);
+            this.txtFilterTables.Name = "txtFilterTables";
+            this.txtFilterTables.Size = new System.Drawing.Size(267, 22);
+            this.txtFilterTables.TabIndex = 4;
+            this.txtFilterTables.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(267, 30);
+            this.splitter1.Location = new System.Drawing.Point(267, 28);
             this.splitter1.Margin = new System.Windows.Forms.Padding(4);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(7, 534);
+            this.splitter1.Size = new System.Drawing.Size(7, 536);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -405,10 +432,10 @@
             this.panel2.Controls.Add(this.splitter3);
             this.panel2.Controls.Add(this.txtSql);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(274, 30);
+            this.panel2.Location = new System.Drawing.Point(274, 28);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(705, 534);
+            this.panel2.Size = new System.Drawing.Size(705, 536);
             this.panel2.TabIndex = 2;
             // 
             // panel3
@@ -419,7 +446,7 @@
             this.panel3.Location = new System.Drawing.Point(0, 126);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(705, 408);
+            this.panel3.Size = new System.Drawing.Size(705, 410);
             this.panel3.TabIndex = 2;
             // 
             // tabDados
@@ -431,12 +458,13 @@
             this.tabDados.Controls.Add(this.tabPage3);
             this.tabDados.Controls.Add(this.tbLog);
             this.tabDados.Controls.Add(this.tabPage1);
+            this.tabDados.Controls.Add(this.tabPage5);
             this.tabDados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabDados.Location = new System.Drawing.Point(0, 27);
             this.tabDados.Margin = new System.Windows.Forms.Padding(4);
             this.tabDados.Name = "tabDados";
             this.tabDados.SelectedIndex = 0;
-            this.tabDados.Size = new System.Drawing.Size(705, 381);
+            this.tabDados.Size = new System.Drawing.Size(705, 383);
             this.tabDados.TabIndex = 2;
             // 
             // tbSql
@@ -448,7 +476,7 @@
             this.tbSql.Margin = new System.Windows.Forms.Padding(4);
             this.tbSql.Name = "tbSql";
             this.tbSql.Padding = new System.Windows.Forms.Padding(4);
-            this.tbSql.Size = new System.Drawing.Size(697, 352);
+            this.tbSql.Size = new System.Drawing.Size(697, 354);
             this.tbSql.TabIndex = 0;
             this.tbSql.Text = "Dados";
             // 
@@ -476,7 +504,7 @@
             this.grdRegistros.ReadOnly = true;
             this.grdRegistros.RowHeadersWidth = 51;
             this.grdRegistros.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.grdRegistros.Size = new System.Drawing.Size(689, 328);
+            this.grdRegistros.Size = new System.Drawing.Size(689, 330);
             this.grdRegistros.TabIndex = 2;
             this.grdRegistros.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdRegistros_CellDoubleClick);
             this.grdRegistros.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdRegistros_DataError);
@@ -484,7 +512,7 @@
             // lblErroGrid
             // 
             this.lblErroGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblErroGrid.Location = new System.Drawing.Point(4, 332);
+            this.lblErroGrid.Location = new System.Drawing.Point(4, 334);
             this.lblErroGrid.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblErroGrid.Name = "lblErroGrid";
             this.lblErroGrid.Size = new System.Drawing.Size(689, 16);
@@ -498,7 +526,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(697, 352);
+            this.tabPage2.Size = new System.Drawing.Size(697, 354);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Estrutura";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -525,7 +553,7 @@
             syntaxSettings1.NumberColor = System.Drawing.Color.Empty;
             syntaxSettings1.StringColor = System.Drawing.Color.Empty;
             this.txtScript.Settings = syntaxSettings1;
-            this.txtScript.Size = new System.Drawing.Size(689, 273);
+            this.txtScript.Size = new System.Drawing.Size(689, 275);
             this.txtScript.TabIndex = 0;
             this.txtScript.Text = "";
             this.txtScript.WordWrap = false;
@@ -539,7 +567,7 @@
             this.groupBox1.Controls.Add(this.txtAlias);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(4, 277);
+            this.groupBox1.Location = new System.Drawing.Point(4, 279);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -595,7 +623,7 @@
             this.label1.Location = new System.Drawing.Point(8, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 17);
+            this.label1.Size = new System.Drawing.Size(54, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Apelido";
             // 
@@ -607,7 +635,7 @@
             this.tbEsquema.Margin = new System.Windows.Forms.Padding(4);
             this.tbEsquema.Name = "tbEsquema";
             this.tbEsquema.Padding = new System.Windows.Forms.Padding(4);
-            this.tbEsquema.Size = new System.Drawing.Size(697, 352);
+            this.tbEsquema.Size = new System.Drawing.Size(697, 354);
             this.tbEsquema.TabIndex = 6;
             this.tbEsquema.Text = "Esquema";
             this.tbEsquema.UseVisualStyleBackColor = true;
@@ -627,7 +655,7 @@
             this.grdEsquema.ReadOnly = true;
             this.grdEsquema.RowHeadersWidth = 51;
             this.grdEsquema.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.grdEsquema.Size = new System.Drawing.Size(689, 320);
+            this.grdEsquema.Size = new System.Drawing.Size(689, 322);
             this.grdEsquema.TabIndex = 1;
             // 
             // cmbEsquema
@@ -649,7 +677,7 @@
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage4.Size = new System.Drawing.Size(697, 352);
+            this.tabPage4.Size = new System.Drawing.Size(697, 354);
             this.tabPage4.TabIndex = 5;
             this.tabPage4.Text = "Dependências";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -664,7 +692,7 @@
             this.txtDependencias.Multiline = true;
             this.txtDependencias.Name = "txtDependencias";
             this.txtDependencias.ReadOnly = true;
-            this.txtDependencias.Size = new System.Drawing.Size(689, 344);
+            this.txtDependencias.Size = new System.Drawing.Size(689, 346);
             this.txtDependencias.TabIndex = 0;
             // 
             // tabPage3
@@ -674,7 +702,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Size = new System.Drawing.Size(697, 352);
+            this.tabPage3.Size = new System.Drawing.Size(697, 354);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Últimas Instruções";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -688,7 +716,7 @@
             this.lstInstrucoes.Location = new System.Drawing.Point(4, 4);
             this.lstInstrucoes.Margin = new System.Windows.Forms.Padding(4);
             this.lstInstrucoes.Name = "lstInstrucoes";
-            this.lstInstrucoes.Size = new System.Drawing.Size(689, 344);
+            this.lstInstrucoes.Size = new System.Drawing.Size(689, 346);
             this.lstInstrucoes.TabIndex = 0;
             this.lstInstrucoes.SelectedIndexChanged += new System.EventHandler(this.lstInstrucoes_SelectedIndexChanged);
             // 
@@ -699,7 +727,7 @@
             this.tbLog.Margin = new System.Windows.Forms.Padding(4);
             this.tbLog.Name = "tbLog";
             this.tbLog.Padding = new System.Windows.Forms.Padding(4);
-            this.tbLog.Size = new System.Drawing.Size(697, 352);
+            this.tbLog.Size = new System.Drawing.Size(697, 354);
             this.tbLog.TabIndex = 3;
             this.tbLog.Text = "Logs";
             this.tbLog.UseVisualStyleBackColor = true;
@@ -713,7 +741,7 @@
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLog.Size = new System.Drawing.Size(689, 344);
+            this.txtLog.Size = new System.Drawing.Size(689, 346);
             this.txtLog.TabIndex = 0;
             // 
             // tabPage1
@@ -726,7 +754,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(697, 352);
+            this.tabPage1.Size = new System.Drawing.Size(697, 354);
             this.tabPage1.TabIndex = 4;
             this.tabPage1.Text = "Relatorio";
             // 
@@ -739,7 +767,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(689, 155);
+            this.groupBox3.Size = new System.Drawing.Size(689, 157);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = " Exibir Colunas                                                          | Totali" +
@@ -754,7 +782,7 @@
             this.lstReportTotalizar.Location = new System.Drawing.Point(336, 19);
             this.lstReportTotalizar.Margin = new System.Windows.Forms.Padding(4);
             this.lstReportTotalizar.Name = "lstReportTotalizar";
-            this.lstReportTotalizar.Size = new System.Drawing.Size(332, 132);
+            this.lstReportTotalizar.Size = new System.Drawing.Size(332, 134);
             this.lstReportTotalizar.TabIndex = 1;
             // 
             // lstReportExibir
@@ -766,7 +794,7 @@
             this.lstReportExibir.Location = new System.Drawing.Point(4, 19);
             this.lstReportExibir.Margin = new System.Windows.Forms.Padding(4);
             this.lstReportExibir.Name = "lstReportExibir";
-            this.lstReportExibir.Size = new System.Drawing.Size(332, 132);
+            this.lstReportExibir.Size = new System.Drawing.Size(332, 134);
             this.lstReportExibir.TabIndex = 0;
             // 
             // groupBox4
@@ -781,7 +809,7 @@
             this.groupBox4.Controls.Add(this.button4);
             this.groupBox4.Controls.Add(this.cmbReportType);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox4.Location = new System.Drawing.Point(4, 214);
+            this.groupBox4.Location = new System.Drawing.Point(4, 216);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
@@ -842,7 +870,7 @@
             this.label3.Location = new System.Drawing.Point(176, 73);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 17);
+            this.label3.Size = new System.Drawing.Size(40, 16);
             this.label3.TabIndex = 3;
             this.label3.Text = "Estilo";
             // 
@@ -852,7 +880,7 @@
             this.label2.Location = new System.Drawing.Point(176, 23);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 17);
+            this.label2.Size = new System.Drawing.Size(35, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tipo";
             // 
@@ -912,6 +940,107 @@
             this.txtReportName.Name = "txtReportName";
             this.txtReportName.Size = new System.Drawing.Size(681, 22);
             this.txtReportName.TabIndex = 1;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.txtCode);
+            this.tabPage5.Controls.Add(this.panel4);
+            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(697, 354);
+            this.tabPage5.TabIndex = 7;
+            this.tabPage5.Text = "Code";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // txtCode
+            // 
+            this.txtCode.BackColor = System.Drawing.SystemColors.Info;
+            this.txtCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCode.Location = new System.Drawing.Point(0, 104);
+            this.txtCode.Multiline = true;
+            this.txtCode.Name = "txtCode";
+            this.txtCode.ReadOnly = true;
+            this.txtCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtCode.Size = new System.Drawing.Size(697, 250);
+            this.txtCode.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.txtNamespace);
+            this.panel4.Controls.Add(this.button8);
+            this.panel4.Controls.Add(this.txtTemplatePath);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.cmbTempaltes);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(697, 104);
+            this.panel4.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 51);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(82, 16);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Namespace";
+            // 
+            // txtNamespace
+            // 
+            this.txtNamespace.Location = new System.Drawing.Point(3, 71);
+            this.txtNamespace.Name = "txtNamespace";
+            this.txtNamespace.Size = new System.Drawing.Size(372, 22);
+            this.txtNamespace.TabIndex = 6;
+            this.txtNamespace.TextChanged += new System.EventHandler(this.txtNamespace_TextChanged);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(659, 26);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(30, 23);
+            this.button8.TabIndex = 5;
+            this.button8.Text = "...";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // txtTemplatePath
+            // 
+            this.txtTemplatePath.Location = new System.Drawing.Point(3, 26);
+            this.txtTemplatePath.Name = "txtTemplatePath";
+            this.txtTemplatePath.Size = new System.Drawing.Size(650, 22);
+            this.txtTemplatePath.TabIndex = 4;
+            this.txtTemplatePath.TextChanged += new System.EventHandler(this.txtTemplatePath_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(378, 51);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 16);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Template";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(123, 16);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Pasta de templates";
+            // 
+            // cmbTempaltes
+            // 
+            this.cmbTempaltes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTempaltes.FormattingEnabled = true;
+            this.cmbTempaltes.Location = new System.Drawing.Point(381, 71);
+            this.cmbTempaltes.Name = "cmbTempaltes";
+            this.cmbTempaltes.Size = new System.Drawing.Size(308, 24);
+            this.cmbTempaltes.TabIndex = 1;
+            this.cmbTempaltes.SelectedValueChanged += new System.EventHandler(this.cmbTempaltes_SelectedValueChanged);
             // 
             // bsNavigator
             // 
@@ -1090,7 +1219,7 @@
             this.sobreToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(979, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(979, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1104,7 +1233,7 @@
             this.limparToolStripMenuItem,
             this.sairToolStripMenuItem});
             this.conexõesToolStripMenuItem.Name = "conexõesToolStripMenuItem";
-            this.conexõesToolStripMenuItem.Size = new System.Drawing.Size(90, 26);
+            this.conexõesToolStripMenuItem.Size = new System.Drawing.Size(90, 24);
             this.conexõesToolStripMenuItem.Text = "Cone&xões";
             this.conexõesToolStripMenuItem.Click += new System.EventHandler(this.conexõesToolStripMenuItem_Click);
             // 
@@ -1153,7 +1282,7 @@
             // mnConnection
             // 
             this.mnConnection.Name = "mnConnection";
-            this.mnConnection.Size = new System.Drawing.Size(101, 26);
+            this.mnConnection.Size = new System.Drawing.Size(101, 24);
             this.mnConnection.Text = "&Usar Banco";
             // 
             // configuraçõesToolStripMenuItem
@@ -1175,7 +1304,7 @@
             this.cbUpdateColumns,
             this.cbTablesAndViews});
             this.configuraçõesToolStripMenuItem.Name = "configuraçõesToolStripMenuItem";
-            this.configuraçõesToolStripMenuItem.Size = new System.Drawing.Size(119, 26);
+            this.configuraçõesToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.configuraçõesToolStripMenuItem.Text = "Confi&gurações";
             // 
             // cbEscreverMaiusculo
@@ -1311,7 +1440,7 @@
             this.executarArquivoDeScriptToolStripMenuItem,
             this.compararBasesToolStripMenuItem});
             this.ferramentasToolStripMenuItem.Name = "ferramentasToolStripMenuItem";
-            this.ferramentasToolStripMenuItem.Size = new System.Drawing.Size(106, 26);
+            this.ferramentasToolStripMenuItem.Size = new System.Drawing.Size(106, 24);
             this.ferramentasToolStripMenuItem.Text = "&Ferramentas";
             // 
             // transformarEmMaiúsculoToolStripMenuItem
@@ -1343,6 +1472,7 @@
             this.truncateDasTabelasToolStripMenuItem,
             this.remoçãoDasTabelasToolStripMenuItem,
             this.listaDeCamposToolStripMenuItem,
+            this.fastCodeToolStripMenuItem,
             this.removeChavesToolStripMenuItem});
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
             this.exportarToolStripMenuItem.Size = new System.Drawing.Size(269, 26);
@@ -1397,6 +1527,13 @@
             this.listaDeCamposToolStripMenuItem.Text = "Lista de Campos";
             this.listaDeCamposToolStripMenuItem.Click += new System.EventHandler(this.listaDeCamposToolStripMenuItem_Click);
             // 
+            // fastCodeToolStripMenuItem
+            // 
+            this.fastCodeToolStripMenuItem.Name = "fastCodeToolStripMenuItem";
+            this.fastCodeToolStripMenuItem.Size = new System.Drawing.Size(240, 26);
+            this.fastCodeToolStripMenuItem.Text = "Fast Code";
+            this.fastCodeToolStripMenuItem.Click += new System.EventHandler(this.fastCodeToolStripMenuItem_Click);
+            // 
             // removeChavesToolStripMenuItem
             // 
             this.removeChavesToolStripMenuItem.Name = "removeChavesToolStripMenuItem";
@@ -1407,7 +1544,8 @@
             // exibirToolStripMenuItem
             // 
             this.exibirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tabelasPorTamanhoToolStripMenuItem});
+            this.tabelasPorTamanhoToolStripMenuItem,
+            this.processosAbertosSQLServerToolStripMenuItem});
             this.exibirToolStripMenuItem.Name = "exibirToolStripMenuItem";
             this.exibirToolStripMenuItem.Size = new System.Drawing.Size(269, 26);
             this.exibirToolStripMenuItem.Text = "Exibir";
@@ -1415,9 +1553,16 @@
             // tabelasPorTamanhoToolStripMenuItem
             // 
             this.tabelasPorTamanhoToolStripMenuItem.Name = "tabelasPorTamanhoToolStripMenuItem";
-            this.tabelasPorTamanhoToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
+            this.tabelasPorTamanhoToolStripMenuItem.Size = new System.Drawing.Size(272, 26);
             this.tabelasPorTamanhoToolStripMenuItem.Text = "Tabelas por tamanho";
             this.tabelasPorTamanhoToolStripMenuItem.Click += new System.EventHandler(this.tabelasPorTamanhoToolStripMenuItem_Click);
+            // 
+            // processosAbertosSQLServerToolStripMenuItem
+            // 
+            this.processosAbertosSQLServerToolStripMenuItem.Name = "processosAbertosSQLServerToolStripMenuItem";
+            this.processosAbertosSQLServerToolStripMenuItem.Size = new System.Drawing.Size(272, 26);
+            this.processosAbertosSQLServerToolStripMenuItem.Text = "Eliminar processos abertos";
+            this.processosAbertosSQLServerToolStripMenuItem.Click += new System.EventHandler(this.processosAbertosSQLServerToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -1441,21 +1586,21 @@
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(115, 24);
             this.consultarToolStripMenuItem.Text = "Consu&ltar [F5]";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // executarToolStripMenuItem
             // 
             this.executarToolStripMenuItem.Name = "executarToolStripMenuItem";
-            this.executarToolStripMenuItem.Size = new System.Drawing.Size(109, 26);
+            this.executarToolStripMenuItem.Size = new System.Drawing.Size(109, 24);
             this.executarToolStripMenuItem.Text = "&Executar [F6]";
             this.executarToolStripMenuItem.Click += new System.EventHandler(this.executarToolStripMenuItem_Click);
             // 
             // sobreToolStripMenuItem
             // 
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(62, 26);
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
             this.sobreToolStripMenuItem.Text = "&Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
@@ -1539,6 +1684,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Principal_FormClosed);
             this.Load += new System.EventHandler(this.Principal_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdColumns)).EndInit();
             this.cmTables.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -1563,6 +1709,10 @@
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsNavigator)).EndInit();
             this.bsNavigator.ResumeLayout(false);
             this.bsNavigator.PerformLayout();
@@ -1705,6 +1855,20 @@
     private System.Windows.Forms.ToolStripMenuItem truncateDasTabelasToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem removeChavesToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem compararBasesToolStripMenuItem;
-  }
+        private System.Windows.Forms.ToolStripMenuItem processosAbertosSQLServerToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtFilterTables;
+        private System.Windows.Forms.ToolStripMenuItem fastCodeToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TextBox txtCode;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox txtTemplatePath;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbTempaltes;
+        private System.Windows.Forms.FolderBrowserDialog dlgFolder;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtNamespace;
+    }
 }
 

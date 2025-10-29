@@ -20,6 +20,7 @@ namespace DbConsole
 
         public void Execute(DbConsole console) 
         {
+            txtTabelas.Text = "";
             List<ItemCountTabela> list = new List<ItemCountTabela>();
 
             List<string> sqls = new List<string>();
@@ -51,7 +52,7 @@ namespace DbConsole
                 }
             }
             
-            lstTabelas.Items.AddRange(list.OrderByDescending(q=>q.Count).ToArray());
+            txtTabelas.Text += String.Join("\r\n", list.OrderByDescending(q=>q.Count).ToList());
         }
 
         public int CountRows(DbConsole console, string Table)

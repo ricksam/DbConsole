@@ -90,10 +90,13 @@ namespace PDFCreator
             cursor = new PDFCursor();
             cursor.Y = margin.Top;
 
+
+            //xFontStyle.
+
             //Adiciona o número da página no rodapé
             pageNumber++;
             graph.DrawString(pageNumber.ToString(),
-                new XFont("sans-serif", 10, XFontStyle.Regular),
+                new XFont("sans-serif", 10, XFontStyleEx.Regular),
                 XBrushes.Black,
                 new XRect(page.Width.Point - (margin.Right - PADDING), page.Height.Point - (margin.Bottom - PADDING), page.Width.Point, page.Height.Point),
                 XStringFormats.TopLeft);
@@ -125,21 +128,21 @@ namespace PDFCreator
 
         public void AddStyle(string StyleName, string FontName, int FontZise, bool Bold, bool Italic, bool Center, int LineHeight, int LineSpacing, PDFColumnBorder Borders)
         {
-            XFontStyle xfs = XFontStyle.Regular;
+            XFontStyleEx xfs = XFontStyleEx.Regular;
             if (Bold && Italic)
             {
-                xfs = XFontStyle.BoldItalic;
+                xfs = XFontStyleEx.BoldItalic;
             }
             else
             {
                 if (Bold)
                 {
-                    xfs = XFontStyle.Bold;
+                    xfs = XFontStyleEx.Bold;
                 }
 
                 if (Italic)
                 {
-                    xfs = XFontStyle.Italic;
+                    xfs = XFontStyleEx.Italic;
                 }
             }
 

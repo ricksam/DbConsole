@@ -3,14 +3,14 @@
 
 [Setup]             
 AppName=DbConsole               
-AppVerName=DbConsole 1.44             
+AppVerName=DbConsole 2.1.1             
 AppPublisher=RCK Software 
 AppPublisherURL=http://www.rcksoftware.com.br
 AppSupportURL=http://www.rcksoftware.com.br
 AppUpdatesURL=http://www.rcksoftware.com.br
 DefaultDirName={pf}\RCK Software\DbConsole
 DefaultGroupName=RCK Software\DbConsole
-OutputBaseFilename=Install_DbConsole-1.44.0.0
+OutputBaseFilename=Install_DbConsole-2.1.1.0
 Compression=lzma 
 SolidCompression=yes
 SetupIconFile=d:\Projects\RckSoftware\DbConsole\DbConsole\1300276968_connect_to_database.ico
