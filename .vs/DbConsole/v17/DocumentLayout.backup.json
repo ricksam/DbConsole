@@ -3,11 +3,16 @@
   "WorkspaceRootPath": "D:\\PROJECTS\\RckSoftware\\DbConsole\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8FF4006C-2D70-467F-BA6C-D08131ACB7CE}|DbConsoleCore\\DbConsoleCore.csproj|d:\\projects\\rcksoftware\\dbconsole\\dbconsolecore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8FF4006C-2D70-467F-BA6C-D08131ACB7CE}|DbConsoleCore\\DbConsoleCore.csproj|solutionrelative:dbconsolecore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{63C463D0-3677-4B15-A377-1A8321592E75}|Framework{63C463D0-3677-4B15-A377-1A8321592E75}|lib.Database||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{63C463D0-3677-4B15-A377-1A8321592E75}|Framework{63C463D0-3677-4B15-A377-1A8321592E75}|lib.Class||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A3F7BED-010A-48C8-8673-E484F0148BA8}|..\\Framework\\lib.class\\lib.Class.csproj|d:\\projects\\rcksoftware\\framework\\lib.class\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A111DF1-90FB-49E3-831A-E6161BF2C115}|..\\Framework\\lib.Database\\lib.Database.csproj|d:\\projects\\rcksoftware\\framework\\lib.database\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,25 +38,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Microsoft.PackageDependencyResolution.targets",
-              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "ViewState": "AgIAAPsAAAAAAAAAAAAgwAkBAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-10-29T18:00:57.66Z"
+              "DocumentIndex": 0,
+              "Title": "lib.Database",
+              "DocumentMoniker": "D:\\PROJECTS\\RckSoftware\\Framework\\lib.Database\\lib.Database.csproj",
+              "RelativeDocumentMoniker": "..\\Framework\\lib.Database\\lib.Database.csproj",
+              "ToolTip": "D:\\PROJECTS\\RckSoftware\\Framework\\lib.Database\\lib.Database.csproj",
+              "RelativeToolTip": "..\\Framework\\lib.Database\\lib.Database.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-29T18:39:03.97Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\PROJECTS\\RckSoftware\\DbConsole\\DbConsoleCore\\Program.cs",
-              "RelativeDocumentMoniker": "DbConsoleCore\\Program.cs",
-              "ToolTip": "D:\\PROJECTS\\RckSoftware\\DbConsole\\DbConsoleCore\\Program.cs",
-              "RelativeToolTip": "DbConsoleCore\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T18:00:51.61Z",
+              "DocumentIndex": 1,
+              "Title": "lib.Class",
+              "DocumentMoniker": "D:\\PROJECTS\\RckSoftware\\Framework\\lib.class\\lib.Class.csproj",
+              "RelativeDocumentMoniker": "..\\Framework\\lib.class\\lib.Class.csproj",
+              "ToolTip": "D:\\PROJECTS\\RckSoftware\\Framework\\lib.class\\lib.Class.csproj",
+              "RelativeToolTip": "..\\Framework\\lib.class\\lib.Class.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-29T18:38:58.955Z",
               "EditorCaption": ""
             }
           ]
