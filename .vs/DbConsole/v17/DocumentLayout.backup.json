@@ -27,7 +27,8 @@
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
               "ViewState": "AgIAAPsAAAAAAAAAAAAgwAkBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-10-29T18:00:57.66Z"
+              "WhenOpened": "2025-10-29T18:00:57.66Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -35,9 +36,9 @@
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\Program.cs",
               "RelativeDocumentMoniker": "DbConsoleCore\\Program.cs",
-              "ToolTip": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\Program.cs",
-              "RelativeToolTip": "DbConsoleCore\\Program.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAYwFcAAAAhAAAAAAAAAA==",
+              "ToolTip": "E:\\PROJECTS\\DbConsole\\DbConsoleCore\\Program.cs*",
+              "RelativeToolTip": "DbConsoleCore\\Program.cs*",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAuwBkAAABoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-29T18:00:51.61Z",
               "EditorCaption": ""

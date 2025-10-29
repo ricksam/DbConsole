@@ -23,8 +23,8 @@ public class Program
             /*args = new string[]{ 
                 "Oracle", 
                 "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=201.91.21.42)(PORT=1831)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=NBS)));User Id=BPANDA;Password=NBS;",
-                "SELECT CHAVE_ALTERNATIVA, PLACA, CHASSI_COMPLETO FROM NBS.CARRERAVW_PATIO_VEICULOS"};
-            */
+                "SELECT CHAVE_ALTERNATIVA, PLACA, CHASSI_COMPLETO FROM NBS.CARRERAVW_PATIO_VEICULOS"};*/
+            
         }
 
         string dbType = args[0];
@@ -49,8 +49,7 @@ public class Program
                     }
                 }
             }
-
-            if (dbType == "Oracle")
+            else if (dbType == "Oracle")
             {
                 using (OracleConnection connection = new OracleConnection(connectionString))
                 {
@@ -64,8 +63,7 @@ public class Program
                     }
                 }
             }
-
-            if(dbType == "MySql")
+            else if(dbType == "MySql")
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
@@ -79,8 +77,7 @@ public class Program
                     }
                 }
             }
-
-            if(dbType== "PostgreSql") {
+            else if(dbType== "PostgreSql") {
                 using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
                     await connection.OpenAsync();
@@ -92,6 +89,11 @@ public class Program
                         dataTable.Load(reader);
                     }
                 }
+            }
+            else
+            {
+                Console.WriteLine($"Error: Invalid dbType = {dbType} use: SqlServer, Oracle, MySql or PostgreSql");
+                return;
             }
             
         }
